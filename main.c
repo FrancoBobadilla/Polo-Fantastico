@@ -1,7 +1,15 @@
 #include <stdio.h>
 
 void salida(unsigned char x) {
-
+    unsigned char i = 8;
+    do {
+        i--;
+        if ((x & (1 << i)) != 0) {
+            printf("*");
+        } else {
+            printf("_");
+        }
+    } while (i != 0);
 };
 
 void autoFantastico() {
@@ -22,7 +30,7 @@ void opcion4() {
 
 int main() {
     char entrada[1];
-    while (1 == 1) {
+    do {
         printf("Menu principal\n 1)Auto fantastico\n 2)Choque\n 3)Carrera\n 4)Opcion4\n 5)Salir\n");
         scanf("%c", entrada);
         //printf("%c", entrada[0]);
@@ -50,5 +58,5 @@ int main() {
                 printf("\nEntrada invalida\nSeleccione nuevamente una opción\n");
                 break;
         }
-    }
+    } while (1);
 }
