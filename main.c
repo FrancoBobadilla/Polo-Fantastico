@@ -123,13 +123,13 @@ char retardo(unsigned long int *a) {
         
         if(kbhit()){
         	c = getch();
-        	if(224 == c){			// (0==c) si impotan las del notepad
-        		d = getch();
-        		if(80 == d){	//disminuye rapidez
+        	if(224 == c){		// (0==c) si impotan las del notepad
+        		c = getch();
+        		if(80 == c){	//disminuye rapidez
         			b = b * 2;
         			(*a) = (*a) * 2;
         		}
-        		else {			//disminuye rapidez
+        		else {			//aumenta rapidez
         			b = b / 2;
 					(*a) = (*a) / 2;
         		}
