@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
-#include <stdlib.h>		//para system()
-	
+#include <stdlib.h>        //para system()
+
 char retardo(unsigned long int *);
 
 void clearScreen();
@@ -20,11 +20,11 @@ void opcion4(unsigned long int *);
 
 char arraycmp(const char *, const char *, unsigned int);
 
-void main() {	
-	unsigned long int tiempoAutoFantastico = 1000;
-	unsigned long int tiempoChoque = 1000;
-	unsigned long int tiempoOpcion3 = 1000;
-	unsigned long int tiempoOpcion4 = 1000;
+void main() {
+    unsigned long int tiempoAutoFantastico = 1000;
+    unsigned long int tiempoChoque = 1000;
+    unsigned long int tiempoOpcion3 = 1000;
+    unsigned long int tiempoOpcion4 = 1000;
 
     char entrada[1];
     if (login()) {
@@ -53,7 +53,7 @@ void main() {
                     break;
 
                 default:
-                    printf("\nEntrada invalida\nSeleccione nuevamente una opción\n");
+                    printf("\nEntrada invalida\nSeleccione nuevamente una opciï¿½n\n");
                     break;
             }
         } while (entrada[0] != '5');
@@ -61,14 +61,14 @@ void main() {
 }
 
 void clearScreen() {
-   system("cls");
-   //clrscr();
+    system("cls");
+    //clrscr();
 }
 
 int login() {
-	const char clave[] = {'c','l','a','v','e'};
-	unsigned long int tiempoBienvenida = 100000;
-	//return 1; 										/**//**//**//**//**//**//**//**//**/
+    const char clave[] = {'c', 'l', 'a', 'v', 'e'};
+    unsigned long int tiempoBienvenida = 100000;
+    //return 1; 										/**//**//**//**//**//**//**//**//**/
     printf("Ingrese su contrasena de 5 digitos\n");
     int i;
     char c[5];
@@ -115,28 +115,26 @@ void salida(unsigned char x) {
 }
 
 char retardo(unsigned long int *a) {
-	unsigned long int b = * a;
-	int c;
-	int d;
-	while (b) {
+    unsigned long int b = *a;
+    int c;
+    while (b) {
         b--;
-        
-        if(kbhit()){
-        	c = getch();
-        	if(224 == c){		// (0==c) si impotan las del notepad
-        		c = getch();
-        		if(80 == c){	//disminuye rapidez
-        			b = b * 2;
-        			(*a) = (*a) * 2;
-        		}
-        		else {			//aumenta rapidez
-        			b = b / 2;
-					(*a) = (*a) / 2;
-        		}
-			}else{
-				return 1;
-			}
-		}
+
+        if (kbhit()) {
+            c = getch();
+            if (224 == c) {        // (0==c) si impotan las del notepad
+                c = getch();
+                if (80 == c) {    //disminuye rapidez
+                    b = b * 2;
+                    (*a) = (*a) * 2;
+                } else {            //aumenta rapidez
+                    b = b / 2;
+                    (*a) = (*a) / 2;
+                }
+            } else {
+                return 1;
+            }
+        }
     }
     return 0;
 }
@@ -149,32 +147,32 @@ void autoFantastico(unsigned long int *tiempoAutoFantastico) {
         for (i = 128; i > 0; i >>= 1) {
             salida(i);
             if (retardo(tiempoAutoFantastico)) {
-            	salida(0);
+                salida(0);
                 return;
             }
         }
-        for(i= 2; i < 128; i <<= 1){
-        	salida(i);
+        for (i = 2; i < 128; i <<= 1) {
+            salida(i);
             if (retardo(tiempoAutoFantastico)) {
-            	salida(0);
+                salida(0);
                 return;
             }
-		}
+        }
     }
 }
 
 void choque(unsigned long int *tiempoChoque) {
-	char i;	//notar que es char y no unsigned char
-	unsigned char tablaChoque[] = {0x42, 0x24, 0x18, 0x18, 0x24, 0x42, 0x81};
-	clearScreen();
-	printf("Choque!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione cualquier otra tecla\n\n");
-    while(1){
-    	 for (i = 6; i >= 0; i--) {
+    char i;    //notar que es char y no unsigned char
+    unsigned char tablaChoque[] = {0x42, 0x24, 0x18, 0x18, 0x24, 0x42, 0x81};
+    clearScreen();
+    printf("Choque!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione cualquier otra tecla\n\n");
+    while (1) {
+        for (i = 6; i >= 0; i--) {
             salida(tablaChoque[i]);
             if (retardo(tiempoChoque))
                 return;
         }
-	}
+    }
 }
 
 void opcion3(unsigned long int *tiempoOpcion3) {
@@ -186,9 +184,9 @@ void opcion4(unsigned long int *tiempoOpcion4) {
 }
 
 char arraycmp(const char *a, const char *b, unsigned int tamanio) {
-	int i;
+    int i;
     for (i = 0; i < tamanio; ++i) {
-        if(a[i] != b[i])
+        if (a[i] != b[i])
             return 1;
     }
     return 0;
