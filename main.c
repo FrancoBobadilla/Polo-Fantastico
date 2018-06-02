@@ -18,6 +18,8 @@ void opcion3(unsigned long int *);
 
 void opcion4(unsigned long int *);
 
+char arraycmp(const char *, const char *, unsigned int);
+
 void main() {	
 	unsigned long int tiempoAutoFantastico = 1000;
 	unsigned long int tiempoChoque = 1000;
@@ -80,7 +82,7 @@ int login() {
             printf("*");
 
         } while (i != 0);
-        if (0 == strcmp(clave, c)) {
+        if ('0' == arraycmp(clave, c, 5)) {
             clearScreen();
             printf(" ----------------------- ");
             printf("\n");
@@ -173,4 +175,12 @@ void opcion3(unsigned long int *tiempoOpcion3) {
 
 void opcion4(unsigned long int *tiempoOpcion4) {
 
+}
+
+char arraycmp(const char *a, const char *b, unsigned int tamanio) {
+    for (int i = 0; i < tamanio; ++i) {
+        if(a[i] != b[i])
+            return '1';
+    }
+    return '0';
 }
