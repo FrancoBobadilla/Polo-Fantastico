@@ -82,7 +82,7 @@ int login() {
             printf("*");
 
         } while (i != 0);
-        if ('0' == arraycmp(clave, c, 5)) {
+        if (0 == arraycmp(clave, c, 5)) {
             clearScreen();
             printf(" ----------------------- ");
             printf("\n");
@@ -148,13 +148,17 @@ void autoFantastico(unsigned long int *tiempoAutoFantastico) {
     while (1) {
         for (i = 128; i > 0; i >>= 1) {
             salida(i);
-            if (retardo(tiempoAutoFantastico))
+            if (retardo(tiempoAutoFantastico)) {
+            	salida(0);
                 return;
+            }
         }
         for(i= 2; i < 128; i <<= 1){
         	salida(i);
-            if (retardo(tiempoAutoFantastico))
+            if (retardo(tiempoAutoFantastico)) {
+            	salida(0);
                 return;
+            }
 		}
     }
 }
@@ -184,7 +188,7 @@ void opcion4(unsigned long int *tiempoOpcion4) {
 char arraycmp(const char *a, const char *b, unsigned int tamanio) {
     for (int i = 0; i < tamanio; ++i) {
         if(a[i] != b[i])
-            return '1';
+            return 1;
     }
-    return '0';
+    return 0;
 }
