@@ -116,21 +116,25 @@ void salida(unsigned char x) {
 
 char retardo(unsigned long int *a) {
 	unsigned long int b = * a;
+	int c;
+	int d;
 	while (b) {
         b--;
         
         if(kbhit()){
-        	char c = getch();
-        	if('z' == c){		//disminuye rapidez
-        		b = b * 2;
-        		(*a) = (*a) * 2;
-			}else{
-				if('x' == c){	//aumenta rapidez
-					b = b / 2;
+        	c = getch();
+        	if(224 == c){			// (0==c) si impotan las del notepad
+        		d = getch();
+        		if(80 == d){	//disminuye rapidez
+        			b = b * 2;
+        			(*a) = (*a) * 2;
+        		}
+        		else {			//disminuye rapidez
+        			b = b / 2;
 					(*a) = (*a) / 2;
-				}else{
-					return 1;
-				}
+        		}
+			}else{
+				return 1;
 			}
 		}
     }
