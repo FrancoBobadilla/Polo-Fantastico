@@ -186,7 +186,8 @@ void opcion4(unsigned long int *tiempoOpcion4) {
 }
 
 char arraycmp(const char *a, const char *b, unsigned int tamanio) {
-    for (int i = 0; i < tamanio; ++i) {
+	int i;
+    for (i = 0; i < tamanio; ++i) {
         if(a[i] != b[i])
             return 1;
     }
