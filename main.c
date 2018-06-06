@@ -2,6 +2,10 @@
 #include <conio.h>
 #include <stdlib.h>        //para system()
 
+#define TMAX 1700
+#define TMED 1000
+#define TMIN 200
+
 char retardo(unsigned long int *);
 
 void clearScreen();
@@ -21,10 +25,10 @@ void opcion4(unsigned long int *);
 char arraycmp(const char *, const char *, unsigned int);
 
 void main() {
-    unsigned long int tiempoAutoFantastico = 1000;
-    unsigned long int tiempoChoque = 1000;
-    unsigned long int tiempoOpcion3 = 1000;
-    unsigned long int tiempoOpcion4 = 1000;
+    unsigned long int tiempoAutoFantastico = TMED;
+    unsigned long int tiempoChoque = TMED;
+    unsigned long int tiempoOpcion3 = TMED;
+    unsigned long int tiempoOpcion4 = TMED;
 
     char entrada[1];
     if (login()) {
@@ -66,9 +70,9 @@ void clearScreen() {
 }
 
 int login() {
+	return 1;
     const char clave[] = {'c', 'l', 'a', 'v', 'e'};
     unsigned long int tiempoBienvenida = 100000;
-    //return 1; 										/**//**//**//**//**//**//**//**//**/
     printf("Ingrese su contrasena de 5 digitos\n");
     int i;
     char c[5];
@@ -103,7 +107,7 @@ int login() {
 
 void salida(unsigned char x) {
     unsigned char i = 8;
-    printf("\r");
+    printf("\n");
     do {
         i--;
         if ((x & (1 << i)) != 0) {
@@ -117,23 +121,34 @@ void salida(unsigned char x) {
 char retardo(unsigned long int *a) {
     unsigned long int b = *a;
     int c;
+    printf("%d",*a);
     while (b) {
         b--;
-
         if (kbhit()) {
             c = getch();
-            if (224 == c) {        // (0==c) si impotan las del notepad
+            if (224 == c) {
                 c = getch();
-                if (80 == c) {    //disminuye rapidez
-                    b = b * 2;
-                    (*a) = (*a) * 2;
-                } else {            //aumenta rapidez
-                    b = b / 2;
-                    (*a) = (*a) / 2;
-                }
-            } else {
-                return 1;
-            }
+    			switch (c){
+    				case 80:
+    					if((*a) < TMAX){
+                			(*a) = (*a) + 100;
+							//falta alterear b
+						}
+						break;
+						
+					case 72:
+						if((*a) > TMIN){
+							(*a) = (*a) - 100;
+							//falta alterear b
+						}
+						break;
+						
+					default:
+						return 1;
+						
+				}
+    		}else
+    			return 1;
         }
     }
     return 0;
@@ -147,14 +162,14 @@ void autoFantastico(unsigned long int *tiempoAutoFantastico) {
         for (i = 128; i > 0; i >>= 1) {
             salida(i);
             if (retardo(tiempoAutoFantastico)) {
-                salida(0);
+                //salida(0);
                 return;
             }
         }
         for (i = 2; i < 128; i <<= 1) {
             salida(i);
             if (retardo(tiempoAutoFantastico)) {
-                salida(0);
+                //salida(0);
                 return;
             }
         }
