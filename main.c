@@ -2,7 +2,7 @@
 #include <conio.h>
 #include <stdlib.h>        //para system()
 
-#define TMAX 1700				
+#define TMAX 5700				
 #define TMED 1000
 #define TMIN 200
 
@@ -107,7 +107,7 @@ int login() {
 
 void salida(unsigned char x) {
     unsigned char i = 8;
-    printf("\n");           
+    printf("\r");           
     do {
         i--;
         if ((x & (1 << i)) != 0) {
@@ -192,20 +192,67 @@ void choque(unsigned long int *tiempoChoque) {
 
 void policia(unsigned long int *tiempoPolicia) {
 	char i;    
-    unsigned char tablaPolicia[] = {0x0F, 0x00, 0x0F, 0x00, 0x0F, 0x00,
-    								0xF0, 0x00, 0xF0, 0x00, 0xF0, 0x00,
-    								0x0F, 0x0F, 0x0F, 0x00, 0x00, 0x00,
-    								0xF0, 0xF0, 0xF0, 0x00, 0x00, 0x00,
-    								};
+    unsigned char tablaPolicia[] = {
+    								0x00, 0x00, 0x00, 0x0F, 0x0F, 0x0F,
+    								0x00, 0x00, 0x00, 0xF0, 0xF0, 0xF0,
+    								0x00, 0x0F, 0x00, 0x0F, 0x00, 0x0F,
+    								0x00, 0xF0, 0x00, 0xF0, 0x00, 0xF0
+		    						};
+
     clearScreen();
     printf("Policia!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione cualquier otra tecla\n\n");
-    while (1) {
-        for (i = 23; i >= 0; i--) {
-            salida(tablaPolicia[i]);
-            if (retardo(tiempoPolicia))
-                return;
-        }
-    }
+    // while (1) {
+    //     for (i = 23; i >= 0; i--) {
+    //         salida(tablaPolicia[i]);
+    //         if (retardo(tiempoPolicia))
+    //             return;
+    //     }
+    // }
+
+    while(1){
+    	for (i = 3; i > 0; i--)
+    	{
+    		salida(0xF0);
+    		if (retardo(tiempoPolicia))
+            	    return;
+    		salida(0x00);
+    		if (retardo(tiempoPolicia))
+                	return;
+    	}
+    	for (i = 3; i > 0; i--)
+    	{
+	    	salida(0x0F);
+    		if (retardo(tiempoPolicia))
+                	return;
+    		salida(0x00);
+    		if (retardo(tiempoPolicia))
+    	            return;
+	    }
+    	for (i = 3; i > 0; i--)
+    	{
+    		salida(0xF0);
+    		if (retardo(tiempoPolicia))
+        	        return;
+    	}
+    	for (i = 3; i > 0; i--)
+    	{
+    		salida(0x00);
+    		if (retardo(tiempoPolicia))
+        	        return;
+    	}
+    	for (i = 3; i > 0; i--)
+    	{
+    		salida(0x0F);
+    		if (retardo(tiempoPolicia))
+        	        return;
+    	}
+		for (i = 3; i > 0; i--)
+    	{
+    		salida(0x00);
+    		if (retardo(tiempoPolicia))
+        	        return;
+    	}
+	}
 }
 
 void opcion4(unsigned long int *tiempoOpcion4) {
