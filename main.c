@@ -2,7 +2,7 @@
 #include <conio.h>
 #include <stdlib.h>        //para system()
 
-#define TMAX 5700				
+#define TMAX 1700				
 #define TMED 1000
 #define TMIN 200
 
@@ -30,13 +30,13 @@ void main() {
     unsigned long int tiempoPolicia = TMED;
     unsigned long int tiempoOpcion4 = TMED;
 
-    char entrada[1];
+    char entrada;
     if (login()) {
         do {
             clearScreen();
             printf("Menu principal\n 1)Auto fantastico\n 2)Choque\n 3)Policia\n 4)Opcion4\n 5)Salir\n");
-            scanf("%c", entrada);
-            switch (entrada[0]) {
+        	entrada = getch();
+            switch (entrada) {
                 case '1':
                     autoFantastico(&tiempoAutoFantastico);
                     break;
@@ -60,7 +60,7 @@ void main() {
                     printf("\nEntrada invalida\nSeleccione nuevamente una opciï¿½n\n");
                     break;
             }
-        } while (entrada[0] != '5');
+        } while (entrada != '5');
     }
 }
 
@@ -121,34 +121,39 @@ void salida(unsigned char x) {
 char retardo(unsigned long int *a) {
     unsigned long int b = *a;
     int c;
-    printf("%d",*a);   
-    while (b) {
-        b--;
+    //printf("%d",*a);   
+    while (b--) {
         if (kbhit()) {
             c = getch();
-            if (224 == c) {
-                c = getch();
+            if (c == 224 || c == 0) {	//224: teclas de las fechas de navegacion principales, 0: funciones especiales, flechas de navegacion secundarias (del teclado numerico, cuadno no esta activado el bloc num) incluidas
+            	if (kbhit())
+                	c = getch();
+                else
+                	return 0;	//en caso de que el usuario ingrese (no se cómo) el char "0"
     			switch (c){
     				case 80:
     					if((*a) < TMAX){
+    						b = b / (*a);
                 			(*a) = (*a) + 100;
-							//falta alterear b
+                			b = b * (*a);
 						}
 						break;
-						
 					case 72:
 						if((*a) > TMIN){
-							(*a) = (*a) - 100;
-							//falta alterear b
+							b = b / (*a);
+                			(*a) = (*a) - 100;
+                			b = b * (*a);
 						}
 						break;
-						
 					default:
 						return 1;
-						
 				}
-    		}else
+    		}else{
+    			if(kbhit())
+    				getch();
     			return 1;
+			}
+    			
         }
     }
     return 0;
@@ -162,14 +167,14 @@ void autoFantastico(unsigned long int *tiempoAutoFantastico) {
         for (i = 128; i > 0; i >>= 1) {
             salida(i);
             if (retardo(tiempoAutoFantastico)) {
-                //salida(0);
+                salida(0);
                 return;
             }
         }
         for (i = 2; i < 128; i <<= 1) {
             salida(i);
             if (retardo(tiempoAutoFantastico)) {
-                //salida(0);
+                salida(0);
                 return;
             }
         }
