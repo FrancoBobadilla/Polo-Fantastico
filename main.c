@@ -125,8 +125,7 @@ char retardo(unsigned long int *a) {
     while (b--) {
         if (kbhit()) {
             c = getch();
-            if (c == 224 || c ==
-                            0) {    //224: teclas de las fechas de navegacion principales, 0: funciones especiales, flechas de navegacion secundarias (del teclado numerico, cuadno no esta activado el bloc num) incluidas
+            if (c == 224 || c == 0) {    //224: teclas de las fechas de navegacion principales, 0: funciones especiales, flechas de navegacion secundarias (del teclado numerico, cuadno no esta activado el bloc num) incluidas
                 if (kbhit())
                     c = getch();
                 else
