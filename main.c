@@ -149,8 +149,8 @@ char retardo(unsigned long int *a) {
 						return 1;
 				}
     		}else{
-    			if(kbhit())
-    				getch();
+    			if(kbhit())	
+    				getch();	//en caso de que el usuario entre un doble char, y que el primero no sea "0" ni "224"
     			return 1;
 			}
     			
@@ -162,6 +162,7 @@ char retardo(unsigned long int *a) {
 void autoFantastico(unsigned long int *tiempoAutoFantastico) {
     unsigned char i;
     clearScreen();
+    //_setcursortype( _NOCURSOR ); 
     printf("Auto fantastico!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione cualquier otra tecla\n\n");
     while (1) {
         for (i = 128; i > 0; i >>= 1) {
@@ -190,7 +191,10 @@ void choque(unsigned long int *tiempoChoque) {
         for (i = 6; i >= 0; i--) {
             salida(tablaChoque[i]);
             if (retardo(tiempoChoque))
+            {
+                salida(0);
                 return;
+			}
         }
     }
 }
@@ -218,44 +222,60 @@ void policia(unsigned long int *tiempoPolicia) {
     	for (i = 3; i > 0; i--)
     	{
     		salida(0xF0);
-    		if (retardo(tiempoPolicia))
-            	    return;
+    		if (retardo(tiempoPolicia)){
+                salida(0);
+                return;
+			}
     		salida(0x00);
-    		if (retardo(tiempoPolicia))
-                	return;
+    		if (retardo(tiempoPolicia)){
+                salida(0);
+                return;
+			}
     	}
     	for (i = 3; i > 0; i--)
     	{
 	    	salida(0x0F);
-    		if (retardo(tiempoPolicia))
-                	return;
+    		if (retardo(tiempoPolicia)){
+                salida(0);
+                return;
+			}
     		salida(0x00);
-    		if (retardo(tiempoPolicia))
-    	            return;
+    		if (retardo(tiempoPolicia)){
+                salida(0);
+                return;
+			}
 	    }
     	for (i = 3; i > 0; i--)
     	{
     		salida(0xF0);
-    		if (retardo(tiempoPolicia))
-        	        return;
+    		if (retardo(tiempoPolicia)){
+                salida(0);
+                return;
+			}
     	}
     	for (i = 3; i > 0; i--)
     	{
     		salida(0x00);
-    		if (retardo(tiempoPolicia))
-        	        return;
+    		if (retardo(tiempoPolicia)){
+                salida(0);
+                return;
+			}
     	}
     	for (i = 3; i > 0; i--)
     	{
     		salida(0x0F);
-    		if (retardo(tiempoPolicia))
-        	        return;
+    		if (retardo(tiempoPolicia)){
+                salida(0);
+                return;
+			}
     	}
 		for (i = 3; i > 0; i--)
     	{
     		salida(0x00);
-    		if (retardo(tiempoPolicia))
-        	        return;
+    		if (retardo(tiempoPolicia)){
+                salida(0);
+                return;
+			}
     	}
 	}
 }
