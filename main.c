@@ -2,7 +2,7 @@
 #include <conio.h>
 #include <stdlib.h>        //para system()
 
-#define TMAX 1700
+#define TMAX 1700				
 #define TMED 1000
 #define TMIN 200
 
@@ -18,7 +18,7 @@ void autoFantastico(unsigned long int *);
 
 void choque(unsigned long int *);
 
-void opcion3(unsigned long int *);
+void policia(unsigned long int *);
 
 void opcion4(unsigned long int *);
 
@@ -27,14 +27,14 @@ char arraycmp(const char *, const char *, unsigned int);
 void main() {
     unsigned long int tiempoAutoFantastico = TMED;
     unsigned long int tiempoChoque = TMED;
-    unsigned long int tiempoOpcion3 = TMED;
+    unsigned long int tiempoPolicia = TMED;
     unsigned long int tiempoOpcion4 = TMED;
 
     char entrada[1];
     if (login()) {
         do {
             clearScreen();
-            printf("Menu principal\n 1)Auto fantastico\n 2)Choque\n 3)Opcion3\n 4)Opcion4\n 5)Salir\n");
+            printf("Menu principal\n 1)Auto fantastico\n 2)Choque\n 3)Policia\n 4)Opcion4\n 5)Salir\n");
             scanf("%c", entrada);
             switch (entrada[0]) {
                 case '1':
@@ -46,7 +46,7 @@ void main() {
                     break;
 
                 case '3':
-                    opcion3(&tiempoOpcion3);
+                    policia(&tiempoPolicia);
                     break;
 
                 case '4':
@@ -107,7 +107,7 @@ int login() {
 
 void salida(unsigned char x) {
     unsigned char i = 8;
-    printf("\n");
+    printf("\n");           
     do {
         i--;
         if ((x & (1 << i)) != 0) {
@@ -121,7 +121,7 @@ void salida(unsigned char x) {
 char retardo(unsigned long int *a) {
     unsigned long int b = *a;
     int c;
-    printf("%d",*a);
+    printf("%d",*a);   
     while (b) {
         b--;
         if (kbhit()) {
@@ -190,8 +190,22 @@ void choque(unsigned long int *tiempoChoque) {
     }
 }
 
-void opcion3(unsigned long int *tiempoOpcion3) {
-
+void policia(unsigned long int *tiempoPolicia) {
+	char i;    
+    unsigned char tablaPolicia[] = {0x0F, 0x00, 0x0F, 0x00, 0x0F, 0x00,
+    								0xF0, 0x00, 0xF0, 0x00, 0xF0, 0x00,
+    								0x0F, 0x0F, 0x0F, 0x00, 0x00, 0x00,
+    								0xF0, 0xF0, 0xF0, 0x00, 0x00, 0x00,
+    								};
+    clearScreen();
+    printf("Policia!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione cualquier otra tecla\n\n");
+    while (1) {
+        for (i = 23; i >= 0; i--) {
+            salida(tablaPolicia[i]);
+            if (retardo(tiempoPolicia))
+                return;
+        }
+    }
 }
 
 void opcion4(unsigned long int *tiempoOpcion4) {
