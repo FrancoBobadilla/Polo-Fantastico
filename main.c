@@ -2,7 +2,7 @@
 #include <conio.h>
 #include <stdlib.h>        //para system()
 
-#define TMAX 1000
+#define TMAX 10000
 #define TMED 500
 #define TMIN 100
 #define INTERVALO 100
@@ -23,6 +23,8 @@ void policia(unsigned long int *);    //algoritmo
 
 void piedraEstanque(unsigned long int *);    //tabla
 
+void semaforo(unsigned long int *);
+
 char arraycmp(const char *, const char *, unsigned int);
 
 void main() {
@@ -30,12 +32,13 @@ void main() {
     unsigned long int tiempoChoque = TMED;
     unsigned long int tiempoPolicia = TMED;
     unsigned long int tiempoPiedraEstanque = TMED;
+    unsigned long int tiempoSemaforo = TMAX;
     unsigned long int tiempoError = TMAX;
     char entrada;
     if (login()) {
         do {
             clearScreen();
-            printf("Menu principal\n 1)Auto fantastico\n 2)Choque\n 3)Policia\n 4)Piedra cayendo sobre estanque\n 5)Salir\n");
+            printf("Menu principal\n 1)Auto fantastico\n 2)Choque\n 3)Policia\n 4)Piedra cayendo sobre estanque\n 5)Semaforo\n 6)Salir\n");
             entrada = getch();
             switch (entrada) {
                 case '1':
@@ -55,6 +58,10 @@ void main() {
                     break;
 
                 case '5':
+                    semaforo(&tiempoSemaforo);
+                    break;
+
+                case '6':
                     break;
 
                 default:
@@ -63,7 +70,7 @@ void main() {
                     retardo(&tiempoError);
                     break;
             }
-        } while (entrada != '5');
+        } while (entrada != '6');
     }
 }
 
@@ -320,6 +327,56 @@ void piedraEstanque(unsigned long int *direccionTiempo) {
             }
         }
     }
+}
+
+void semaforo(unsigned long int *direccionTiempo){
+    // El desplazamiento aritmético hacia la izquierda es exactamente igual al desplazamiento lógico hacia la izquierda
+    unsigned char i;
+    clearScreen();
+    printf("Semaforo!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione cualquier otra tecla\n\n");
+    int j;
+    i = 128;
+
+    // avanzan todos
+    for (j = 18; j > 0; j--){
+        salida(i, *direccionTiempo);
+        if (retardo(direccionTiempo)) {
+            salida(0, *direccionTiempo);
+            return;
+        }
+        i >>= 1;
+        if(i < 64){
+            i = i | 128;
+        }
+    }
+
+    // se frena el primero
+    for (j = 10; j > 0; j--){
+        salida(85, *direccionTiempo);
+        if (retardo(direccionTiempo)) {
+            salida(0, *direccionTiempo);
+            return;
+        }
+    }
+
+    unsigned char g;
+    while(i > 0){
+        i ^= 1;
+        system("pause");
+
+        g = 6;
+        while(g > 0){
+            i = i ^ g;
+            g >>=1;
+            salida(i, *direccionTiempo);
+            system("pause");
+        }
+
+    }
+
+
+
+    system("pause");
 }
 
 char arraycmp(const char *a, const char *b, unsigned int tamanio) {    //usada unicamente en funcion login()
