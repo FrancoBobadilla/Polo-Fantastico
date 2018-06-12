@@ -222,7 +222,6 @@ void policia(unsigned long int *direccionTiempo) {    //algoritmo
     */
 
     while (1) {
-
         for (i = 3; i > 0; i--) {
             salida(0xF0, *direccionTiempo);
             if (retardo(direccionTiempo)) {
@@ -234,6 +233,12 @@ void policia(unsigned long int *direccionTiempo) {    //algoritmo
                 salida(0, *direccionTiempo);
                 return;
             }
+        }
+
+        salida(0x00, *direccionTiempo);
+        if (retardo(direccionTiempo)) {
+            salida(0, *direccionTiempo);
+            return;
         }
 
         for (i = 3; i > 0; i--) {
@@ -249,6 +254,12 @@ void policia(unsigned long int *direccionTiempo) {    //algoritmo
             }
         }
 
+        salida(0x00, *direccionTiempo);
+        if (retardo(direccionTiempo)) {
+            salida(0, *direccionTiempo);
+            return;
+        }
+
         for (i = 3; i > 0; i--) {
             salida(0xF0, *direccionTiempo);
             if (retardo(direccionTiempo)) {
@@ -263,6 +274,12 @@ void policia(unsigned long int *direccionTiempo) {    //algoritmo
                 salida(0, *direccionTiempo);
                 return;
             }
+        }
+
+        salida(0x00, *direccionTiempo);
+        if (retardo(direccionTiempo)) {
+            salida(0, *direccionTiempo);
+            return;
         }
 
         for (i = 3; i > 0; i--) {
@@ -280,7 +297,11 @@ void policia(unsigned long int *direccionTiempo) {    //algoritmo
                 return;
             }
         }
-
+        salida(0x00, *direccionTiempo);
+        if (retardo(direccionTiempo)) {
+            salida(0, *direccionTiempo);
+            return;
+        }
     }
 }
 
