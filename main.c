@@ -40,18 +40,22 @@ void main() {
             switch (entrada) {
                 case '1':
                     autoFantastico(&tiempoAutoFantastico);    //algoritmo
+                    salida(0, tiempoAutoFantastico);
                     break;
 
                 case '2':
                     choque(&tiempoChoque);    //tabla
+                    salida(0, tiempoChoque);
                     break;
 
                 case '3':
                     policia(&tiempoPolicia);    //algoritmo
+                    salida(0, tiempoPolicia);
                     break;
 
                 case '4':
                     piedraEstanque(&tiempoPiedraEstanque);    //tabla
+                    salida(0, tiempoPiedraEstanque);
                     break;
 
                 case '5':
@@ -176,17 +180,13 @@ void autoFantastico(unsigned long int *direccionTiempo) {    //algoritmo
     while (1) {
         for (i = 128; i > 0; i >>= 1) {
             salida(i, *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo))
                 return;
-            }
         }
         for (i = 2; i < 128; i <<= 1) {
             salida(i, *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo))
                 return;
-            }
         }
     }
 }
@@ -199,10 +199,8 @@ void choque(unsigned long int *direccionTiempo) {
     while (1) {
         for (i = 6; i >= 0; i--) {
             salida(tablaChoque[i], *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo))
                 return;
-            }
         }
     }
 }
@@ -225,62 +223,47 @@ void policia(unsigned long int *direccionTiempo) {    //algoritmo
 
         for (i = 3; i > 0; i--) {
             salida(0xF0, *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo)) 
                 return;
-            }
+
             salida(0x00, *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo))
                 return;
-            }
         }
 
         for (i = 3; i > 0; i--) {
             salida(0x0F, *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo)) 
                 return;
-            }
+
             salida(0x00, *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo)) 
                 return;
-            }
         }
 
         for (i = 3; i > 0; i--) {
             salida(0xF0, *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo)) 
                 return;
-            }
         }
 
         for (i = 3; i > 0; i--) {
             salida(0x00, *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo))
                 return;
-            }
         }
 
         for (i = 3; i > 0; i--) {
             salida(0x0F, *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo)) 
                 return;
-            }
         }
 
         for (i = 3; i > 0; i--) {
             salida(0x00, *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo)) 
                 return;
-            }
         }
-
     }
 }
 
@@ -293,10 +276,8 @@ void piedraEstanque(unsigned long int *direccionTiempo) {
     while (1) {
         for (i = 20; i >= 0; i--) {
             salida(tablaPiedraEstanque[i], *direccionTiempo);
-            if (retardo(direccionTiempo)) {
-                salida(0, *direccionTiempo);
+            if (retardo(direccionTiempo))
                 return;
-            }
         }
     }
 }
