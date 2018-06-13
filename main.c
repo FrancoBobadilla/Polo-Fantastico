@@ -2,7 +2,7 @@
 #include <conio.h>
 #include <stdlib.h> //para system()
 
-#define TMAX 1700
+#define TMAX 1600
 #define TMED 900
 #define TMIN 100
 #define INTERVALO 100
@@ -300,7 +300,7 @@ void embotellamiento(unsigned long int* direccionTiempo)
     {
         i = 128;
         // avanzan todos
-        for (j = 18; j >= 0; j--)
+        for (j = 12; j >= 0; j--)
         {
             salida(i, *direccionTiempo);
             if (retardo(direccionTiempo))
@@ -345,7 +345,7 @@ void embotellamiento(unsigned long int* direccionTiempo)
     }
 }
 
-void clearScreen()
+inline void clearScreen()
 {
     system("cls");
 }
