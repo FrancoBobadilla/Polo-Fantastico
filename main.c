@@ -21,7 +21,7 @@ void policia(unsigned long int*); // algoritmo
 
 void piedraEstanque(unsigned long int*); // tabla
 
-void clearScreen();
+inline void clearScreen();
 
 char arraycmp(const char*, const char*, unsigned int);
 
