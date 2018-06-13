@@ -86,7 +86,7 @@ void main()
 char login()
 {
     const char clave[] = { 'c', 'l', 'a', 'v', 'e' };
-    unsigned long int tiempoBienvenida = TMAX;
+    unsigned long int tiempoBienvenida = TMAX * 2;
     printf("Ingrese su password de 5 digitos\n");
     int i;
     char c[5];
@@ -102,6 +102,7 @@ char login()
             printf("*");
 
         } while (i != 0);
+
         if (0 == arraycmp(clave, c, 5))
         {
             clearScreen();
@@ -121,6 +122,7 @@ char login()
             printf("\n");
         }
     }
+    retardo(&tiempoBienvenida);
     return 0;
 }
 
@@ -269,6 +271,10 @@ void policia(unsigned long int* direccionTiempo)
                 return;
         }
 
+        salida(0x00, *direccionTiempo);
+        if (retardo(direccionTiempo))
+            return;
+
         for (i = 3; i > 0; i--)
         {
             salida(0x0F, *direccionTiempo);
@@ -279,6 +285,10 @@ void policia(unsigned long int* direccionTiempo)
             if (retardo(direccionTiempo))
                 return;
         }
+
+        salida(0x00, *direccionTiempo);
+        if (retardo(direccionTiempo))
+            return;
 
         for (i = 3; i > 0; i--)
         {
@@ -294,6 +304,10 @@ void policia(unsigned long int* direccionTiempo)
                 return;
         }
 
+        salida(0x00, *direccionTiempo);
+        if (retardo(direccionTiempo))
+            return;
+
         for (i = 3; i > 0; i--)
         {
             salida(0x0F, *direccionTiempo);
@@ -307,6 +321,10 @@ void policia(unsigned long int* direccionTiempo)
             if (retardo(direccionTiempo))
                 return;
         }
+
+        salida(0x00, *direccionTiempo);
+        if (retardo(direccionTiempo))
+            return;
     }
 }
 
