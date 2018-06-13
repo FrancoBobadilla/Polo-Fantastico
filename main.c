@@ -2,8 +2,8 @@
 #include <conio.h>
 #include <stdlib.h> //para system()
 
-#define TMAX 1000
-#define TMED 500
+#define TMAX 1700
+#define TMED 900
 #define TMIN 100
 #define INTERVALO 100
 
@@ -21,6 +21,8 @@ void policia(unsigned long int*); // algoritmo
 
 void piedraEstanque(unsigned long int*); // tabla
 
+void embotellamiento(unsigned long int*); //algoritmo
+
 inline void clearScreen();
 
 char arraycmp(const char*, const char*, unsigned int);
@@ -31,6 +33,7 @@ void main()
     unsigned long int tiempoChoque = TMED;
     unsigned long int tiempoPolicia = TMED;
     unsigned long int tiempoPiedraEstanque = TMED;
+    unsigned long int tiempoEmbotellamiento = TMED;
     unsigned long int tiempoError = TMAX;
     char entrada;
     if (login())
@@ -38,7 +41,7 @@ void main()
         do
         {
             clearScreen();
-            printf("Menu principal\n 1)Auto fantastico\n 2)Choque\n 3)Policia\n 4)Piedra cayendo sobre estanque\n 5)Salir\n");
+            printf("Menu principal\n 1)Auto fantastico\n 2)Choque\n 3)Policia\n 4)Piedra cayendo sobre estanque\n 5)Embotellamiento\n 6)Salir\n");
             entrada = getch();
             switch (entrada)
             {
@@ -63,6 +66,11 @@ void main()
                     break;
 
                 case '5':
+                    embotellamiento(&tiempoEmbotellamiento); // algoritmo
+                    salida(0, tiempoEmbotellamiento);
+                    break;
+
+                case '6':
                     break;
 
                 default:
@@ -71,7 +79,7 @@ void main()
                     retardo(&tiempoError);
                     break;
             }
-        } while (entrada != '5');
+        } while (entrada != '6');
     }
 }
 
@@ -218,7 +226,7 @@ void autoFantastico(unsigned long int* direccionTiempo)
 // secuencia por tabla
 void choque(unsigned long int* direccionTiempo)
 {
-    char i; // notar que es char y no unsigned char
+    char i; 
     unsigned char tablaChoque[] = { 0x42, 0x24, 0x18, 0x18, 0x24, 0x42, 0x81 };
     clearScreen();
     printf("Choque!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione cualquier otra tecla\n\n");
@@ -305,7 +313,7 @@ void policia(unsigned long int* direccionTiempo)
 // secuencia por tabla
 void piedraEstanque(unsigned long int* direccionTiempo)
 {
-    char i; // notar que es char y no unsigned char
+    char i;
     unsigned char tablaPiedraEstanque[] = { 0x00, 0x00, 0x18, 0x18, 
                                             0x18, 0x24, 0x24, 0x24, 
                                             0x42, 0x42, 0x42, 0x81, 
@@ -320,6 +328,66 @@ void piedraEstanque(unsigned long int* direccionTiempo)
             if (retardo(direccionTiempo))
                 return;
         }
+}
+
+// secuencia por algoritmo
+void embotellamiento(unsigned long int* direccionTiempo)
+{
+    unsigned char i;
+    clearScreen();
+    printf("Embotellamiento!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione cualquier otra tecla\n\n");
+    int j;
+
+    unsigned char potenciasDeDos[] = { 1, 2, 4, 8, 16 };
+    // para no incluir math.h
+
+    while (1)
+    {
+        i = 128;
+        // avanzan todos
+        for (j = 18; j >= 0; j--)
+        {
+            salida(i, *direccionTiempo);
+            if (retardo(direccionTiempo))
+                 return;
+            i >>= 1;
+            if (i < 64)
+                i = i | 128;
+        }
+
+        // se frena el primero
+        for (j = 5; j > 0; j--)
+        {
+            salida(i, *direccionTiempo); // i = 85
+            if (retardo(direccionTiempo))
+                return;
+        }
+
+        unsigned char g = 1;
+        unsigned char count = 0;
+
+        while (i > 0)
+        {
+            while (g > 0)
+            {
+                i ^= g;
+                g >>= 1;
+                salida(i, *direccionTiempo);
+                if (retardo(direccionTiempo))
+                    return;
+            }
+            g = 6 * potenciasDeDos[count];
+            count += 2;
+        }
+
+        // espera para la siguiente ola de autos
+        for (j = 5; j > 0; j--)
+        {
+            salida(i, *direccionTiempo); // i = 85
+            if (retardo(direccionTiempo))
+                return;
+        }
+    }
 }
 
 void clearScreen()
