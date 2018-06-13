@@ -7,7 +7,7 @@
 #define TMIN 100
 #define INTERVALO 100
 
-int login();
+char login();
 
 void salida(unsigned char, unsigned long int);
 
@@ -75,11 +75,11 @@ void main()
     }
 }
 
-int login()
+char login()
 {
     const char clave[] = { 'c', 'l', 'a', 'v', 'e' };
     unsigned long int tiempoBienvenida = TMAX;
-    printf("Ingrese su contrasena de 5 digitos\n");
+    printf("Ingrese su password de 5 digitos\n");
     int i;
     char c[5];
     int cantIntentos = 3;
@@ -108,7 +108,7 @@ int login()
         }
         else
         {
-            printf("\nEntrada incorrecta. Intentos restantes: ");
+            printf("\nPassword no valida. Intentos restantes: ");
             printf("%d", cantIntentos);
             printf("\n");
         }
