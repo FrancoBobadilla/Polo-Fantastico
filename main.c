@@ -277,7 +277,7 @@ void piedraEstanque(unsigned long int* direccionTiempo)
     clearScreen();
     printf("Piedra cayendo sobre estanque!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione cualquier otra tecla\n\n");
     while (1)
-        for (i = 20; i >= 0; i--)
+        for (i = 19; i >= 0; i--)
         {
             salida(tablaPiedraEstanque[i], *direccionTiempo);
             if (retardo(direccionTiempo))
