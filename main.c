@@ -329,54 +329,77 @@ void piedraEstanque(unsigned long int *direccionTiempo) {
     }
 }
 
-void semaforo(unsigned long int *direccionTiempo){
-    // El desplazamiento aritmético hacia la izquierda es exactamente igual al desplazamiento lógico hacia la izquierda
+void semaforo(unsigned long int* direccionTiempo)
+{
     unsigned char i;
     clearScreen();
-    printf("Semaforo!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione cualquier otra tecla\n\n");
+    printf("Semaforo!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para "
+           "disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione "
+           "cualquier otra tecla\n\n");
     int j;
-    i = 128;
 
-    // avanzan todos
-    for (j = 18; j > 0; j--){
-        salida(i, *direccionTiempo);
-        if (retardo(direccionTiempo)) {
-            salida(0, *direccionTiempo);
-            return;
-        }
-        i >>= 1;
-        if(i < 64){
-            i = i | 128;
-        }
-    }
+    unsigned char potenciasDeDos[] = { 1, 2, 4, 8, 16 };
+    // para no incluir math.h
 
-    // se frena el primero
-    for (j = 10; j > 0; j--){
-        salida(85, *direccionTiempo);
-        if (retardo(direccionTiempo)) {
-            salida(0, *direccionTiempo);
-            return;
-        }
-    }
-
-    unsigned char g;
-    while(i > 0){
-        i ^= 1;
-        system("pause");
-
-        g = 6;
-        while(g > 0){
-            i = i ^ g;
-            g >>=1;
+    while (1)
+    {
+        i = 128;
+        // avanzan todos
+        for (j = 18; j >= 0; j--)
+        {
             salida(i, *direccionTiempo);
-            system("pause");
+            if (retardo(direccionTiempo))
+            {
+                salida(0, *direccionTiempo);
+                return;
+            }
+            i >>= 1;
+            if (i < 64)
+                i = i | 128;
         }
 
+        // se frena el primero
+        for (j = 5; j > 0; j--)
+        {
+            salida(i, *direccionTiempo); // i = 85
+            if (retardo(direccionTiempo))
+            {
+                salida(0, *direccionTiempo);
+                return;
+            }
+        }
+
+        unsigned char g = 1;
+        unsigned char count = 0;
+
+        while (i > 0)
+        {
+            while (g > 0)
+            {
+                i ^= g;
+                g >>= 1;
+                salida(i, *direccionTiempo);
+                if (retardo(direccionTiempo))
+                {
+                    salida(0, *direccionTiempo);
+                    return;
+                }
+            }
+            g = 6 * potenciasDeDos[count];
+            count += 2;
+        }
+
+        // espera para la siguiente ola de autos
+        for (j = 5; j > 0; j--)
+        {
+            salida(i, *direccionTiempo); // i = 85
+            if (retardo(direccionTiempo))
+            {
+                salida(0, *direccionTiempo);
+                return;
+            }
+        }
     }
-
-
-
-    system("pause");
 }
 
 char arraycmp(const char *a, const char *b, unsigned int tamanio) {    //usada unicamente en funcion login()
