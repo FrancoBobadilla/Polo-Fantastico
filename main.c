@@ -17,7 +17,7 @@ void autoFantastico(unsigned long int*); // algoritmo
 
 void choque(unsigned long int*); // tabla
 
-void policia(unsigned long int*); // algoritmo
+void policia(unsigned long int*); // tabla
 
 void piedraEstanque(unsigned long int*); // tabla
 
@@ -56,7 +56,7 @@ void main()
                     break;
 
                 case '3':
-                    policia(&tiempoPolicia); // algoritmo
+                    policia(&tiempoPolicia); // tabla
                     salida(0, tiempoPolicia);
                     break;
 
@@ -242,90 +242,27 @@ void choque(unsigned long int* direccionTiempo)
         }
 }
 
-// secuencia por algoritmo
+// secuencia por tabla
 void policia(unsigned long int* direccionTiempo)
 {
     char i;
     clearScreen();
     printf("Policia!!!\n Para aumentar la velocidad presione la flecha para arriba\n Para disminuir la velocidad presione la flecha para abajo\n Para volver al menu presione cualquier otra tecla\n\n");
 
-    /*
-        unsigned char tablaPolicia[] = {
-            0x00, 0x00, 0x00, 0x0F, 0x0F, 0x0F,
-            0x00, 0x00, 0x00, 0xF0, 0xF0, 0xF0,
-            0x00, 0x0F, 0x00, 0x0F, 0x00, 0x0F,
-            0x00, 0xF0, 0x00, 0xF0, 0x00, 0xF0
-    };
-    */
+    unsigned char tablaPolicia[] = {
+                                    0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0x0F, 0x0F,
+                                    0x00, 0x00, 0x00, 0x00, 0x00, 0xF0, 0xF0, 0xF0,
+                                    0x00, 0x00, 0x00, 0x0F, 0x00, 0x0F, 0x00, 0x0F,
+                                    0x00, 0x00, 0x00, 0xF0, 0x00, 0xF0, 0x00, 0xF0
+                                    };  
 
     while (1)
-    {
-        for (i = 3; i > 0; i--)
+        for (i = 31; i >= 0; i--)
         {
-            salida(0xF0, *direccionTiempo);
+            salida(tablaPolicia[i], *direccionTiempo);
             if (retardo(direccionTiempo))
-                return;
-
-            salida(0x00, *direccionTiempo);
-            if (retardo(direccionTiempo))
-                return;
+                return;   
         }
-
-        salida(0x00, *direccionTiempo);
-        if (retardo(direccionTiempo))
-            return;
-
-        for (i = 3; i > 0; i--)
-        {
-            salida(0x0F, *direccionTiempo);
-            if (retardo(direccionTiempo))
-                return;
-
-            salida(0x00, *direccionTiempo);
-            if (retardo(direccionTiempo))
-                return;
-        }
-
-        salida(0x00, *direccionTiempo);
-        if (retardo(direccionTiempo))
-            return;
-
-        for (i = 3; i > 0; i--)
-        {
-            salida(0xF0, *direccionTiempo);
-            if (retardo(direccionTiempo))
-                return;
-        }
-
-        for (i = 3; i > 0; i--)
-        {
-            salida(0x00, *direccionTiempo);
-            if (retardo(direccionTiempo))
-                return;
-        }
-
-        salida(0x00, *direccionTiempo);
-        if (retardo(direccionTiempo))
-            return;
-
-        for (i = 3; i > 0; i--)
-        {
-            salida(0x0F, *direccionTiempo);
-            if (retardo(direccionTiempo))
-                return;
-        }
-
-        for (i = 3; i > 0; i--)
-        {
-            salida(0x00, *direccionTiempo);
-            if (retardo(direccionTiempo))
-                return;
-        }
-
-        salida(0x00, *direccionTiempo);
-        if (retardo(direccionTiempo))
-            return;
-    }
 }
 
 // secuencia por tabla
