@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h> //para system()
+#include "EasyPIO.h"
 
 #define TMAX 1600
 #define TMED 900
